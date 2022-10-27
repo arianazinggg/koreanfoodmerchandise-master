@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<title>Korean Mart</title>
+<%- include('../partials/header'); %>
+<%- include('../partials/navbar'); %>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <style>
+        .mySlides {display:none;
+        margin: 0 auto; width: 960px; max-width:1250px; position: relative; padding: 0;}
+        div.a {
+            font-size: 15px;
+            }
+        p.a {
+            font-family: Arial, Helvetica, sans-serif;
+            }
+        .gradient-text {background-color: #FFFFFF; background-image: linear-gradient(180deg,#0f0c29 0%, #24243e 50%);; background-size: 100%; background-repeat: repeat; -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent; 
+            -moz-background-clip: text;
+            -moz-text-fill-color: transparent;
+          }
+          body {
+        background-color: #181123;
+        }
+
+        header {
+        margin-top: 1em;
+        margin-top: calc(50vh - 3em);
+        }
+
+        h1 {
+        font-family: "Archivo Black", sans-serif;
+        font-weight: normal;
+        font-size: 6em;
+        text-align: center;
+        margin-bottom: 0;
+        margin-bottom: -0.25em;
+        }
+    </style>
+
+
+<body>
+<div class="mx-auto max-w-2xl py-10 px-4 sm:py-22 sm:px-6 lg:max-w-5xl lg:px-6">
+        <h1 class="gradient-text text-center">Korean Mart</h1>
+        <link href="https://fonts.googleapis.com/css?family=Archivo+Black&display=swap" rel="stylesheet">
+
+<!--slideshow pics-->
+<div class="w3-content" style="max-width:1200px">
+    <img class="mySlides" src="https://images.unsplash.com/photo-1580651315530-69c8e0026377?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80" style="width:100%">
+    <img class="mySlides" src="https://images.unsplash.com/photo-1583224964978-2257b960c3d3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80" style="width:100%">
+    <img class="mySlides" src="https://images.unsplash.com/photo-1583032015879-e5022cb87c3b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80" style="width:100%">
+    <img class="mySlides" src="https://images.unsplash.com/photo-1531263539449-56fdf29dfc4d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80" style="width:100%">
+  </div>
+
+<!--script for slideshow-->
+  <script>
+  var myIndex = 0;
+  carousel();
+  
+  function carousel() {
+    var i;
+    var x = document.getElementsByClassName("mySlides");
+    for (i = 0; i < x.length; i++) {
+      x[i].style.display = "none";  
+    }
+    myIndex++;
+    if (myIndex > x.length) {myIndex = 1}    
+    x[myIndex-1].style.display = "block";  
+    setTimeout(carousel, 2000); // Change image every 2 seconds
+  }
+  </script>
+
+<body style ="background-color: #D9AFD9;background-image: linear-gradient(0deg, #D9AFD9 0%, #97D9E1 100%);", width="100%"></body-style>
+    <div class="mx-auto max-w-2xl py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">
+        <div class="container">
+            <div class="row">
+                <div class="mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
+                    <% for(var index=0; index < itemData.length; index++){ %> 
+                        <div class="col s6">
+                            <a href="/item/<%= itemData[index].id %>">
+                                <div class="card center-align">
+                                    <div class="card-image">
+                                        <img src="<%= itemData[index].data()['photoURL'] %>" style="width:220px;height:220px">
+                                    </div>
+
+                                    <div class="a">
+                                    <div class="text-center">
+                                        <p class="a">
+                                            <%= itemData[index].data()['name'] %>
+                                        </p>
+                                        <p class="a">
+                                            ₱ <%=
+                                                parseFloat(itemData[index].data()['price']).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'
+                                                 ) %>
+                                        </p>
+                                    </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <% } %>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>    
+</html>

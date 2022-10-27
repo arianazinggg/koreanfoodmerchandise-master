@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+<title>Korean Mart</title>
+<%- include('../partials/header'); %>
+<%- include('../partials/navbar'); %>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+<!--style of the page-->
+<style>
+        .mySlides {display:none}
+        .w2-left, .w2-right, .w2-badge {cursor:pointer}
+        .w3-badge {height:10px;width:15px;padding:0}
+            div.a {
+            font-size: 22px;
+            }
+            p.a {
+            font-family: Arial, Helvetica, sans-serif;
+            }
+            .image {
+            margin-left: auto;
+            margin-right: auto;
+            width: 100%;
+            height: auto;
+            }
+            .container {
+            position: relative;
+            width: 50%;
+            max-width: 300px;
+            }
+            .overlay {
+            position: absolute; 
+            bottom: 0; 
+            background: rgb(0, 0, 0);
+            background: rgba(0, 0, 0, 0.5); /* Black see-through */
+            color: #f1f1f1; 
+            width: 100%;
+            transition: .5s ease;
+            opacity:0;
+            color: white;
+            font-size: 20px;
+            padding: 20px;
+            text-align: center;
+            }
+            .container:hover .overlay {
+            opacity: 1;
+            }
+
+            table {
+            border-collapse: collapse;
+            border-spacing: 0;
+            width: 100%;
+            border: 1px solid #ddd;
+            }
+
+            th, td {
+            text-align: left;
+            padding: 8px;
+            }
+
+            tr:nth-child(even){background-color: #f2f2f2}
+</style>
+
+<!--slider pictures-->
+<body style ="background: linear-gradient(to bottom, #33ccff 0%, #cc99ff 100%)", width="100%"></body-style>
+    <div class="w3-content w3-display-container" style="max-width:1000px">
+        <img class="mySlides" src="https://images.unsplash.com/photo-1498654896293-37aacf113fd9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80" style="width:100%">
+        <img class="mySlides" src="https://images.unsplash.com/photo-1635363638580-c2809d049eee?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80" style="width:100%">
+        <img class="mySlides" src="https://images.unsplash.com/photo-1550388342-b3fd986e4e67?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80" style="width:100%">
+        <div class="w3-center w3-container w3-section w3-large w3-text-white w3-display-bottommiddle" style="width:100%">
+            <div class="w3-left w3-hover-text-khaki" onclick="plusDivs(-1)">&#10094;</div>
+                <div class="w3-right w3-hover-text-khaki" onclick="plusDivs(1)">&#10095;</div>
+                <span class="w3-badge demo w3-border w3-transparent w3-hover-white" onclick="currentDiv(1)"></span>
+                <span class="w3-badge demo w3-border w3-transparent w3-hover-white" onclick="currentDiv(2)"></span>
+                <span class="w3-badge demo w3-border w3-transparent w3-hover-white" onclick="currentDiv(3)"></span>
+        </div>
+    </div>
+<!--script of the slider-->    
+    <script>
+        var slideIndex = 1;
+        showDivs(slideIndex);
+        
+        function plusDivs(n) {
+          showDivs(slideIndex += n);
+        }
+        
+        function currentDiv(n) {
+          showDivs(slideIndex = n);
+        }
+        
+        function showDivs(n) {
+          var i;
+          var x = document.getElementsByClassName("mySlides");
+          var dots = document.getElementsByClassName("demo");
+          if (n > x.length) {slideIndex = 1}
+          if (n < 1) {slideIndex = x.length}
+          for (i = 0; i < x.length; i++) {
+            x[i].style.display = "none";  
+          }
+          for (i = 0; i < dots.length; i++) {
+            dots[i].className = dots[i].className.replace(" w3-white", "");
+          }
+          x[slideIndex-1].style.display = "block";  
+          dots[slideIndex-1].className += " w3-white";
+        }
+    </script>
+<!--img,description, price of the product-->
+    <div class="mx-auto max-w-3xl py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">
+    <div class = 'leftpane'> 
+    <div style="width: 50%; float: left;"> 
+    <div class="container center-align">
+        <image src="<%= itemData['photoURL'] %>" class="w3-round image" style="width:110%;">
+        <div class="overlay"><%= itemData['description'] %></div>
+        <h3 class="card-title">
+           <%= itemData["name"] %>
+                <div class="card-content">
+                    <p>Price: <%= itemData["price"] %></p>
+        </div></div></div></div>
+
+            <div class = "rightpane">                 
+                <div style="margin-left: 50%;"> 
+                        
+                                    <form>
+                                        <label>Enter Inventory Count: </label>
+                                        <input type ="number" id="AddBox"></input>
+                                        <input type = 'button' onclick ="addRow()" value = "Add data">  
+                                        <button onclick="myDeleteFunction()">Delete row</button>  
+                                    </form> 
+                                    <div class="table-responsive-md"></div>
+                                    <table class="table table-bordered" cellspacing="2" cellpadding="1" id ="myTable" >
+                                        <thead>
+                                            <tr>
+                                            <th style="text-align:left">Date/Time</th>
+                                            <th style="text-align:right">Quantity</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <% var totalStcks = 0; %>
+                                            <% for (var index=0;  index < hist_array.length; index++){ %> 
+                                            <tr>
+                                                <td style="text-align:left"><%= hist_array[index].dateCreated.toDate();%></td>
+                                                <td style="text-align:justify"><%= (hist_array[index].quantity);%></td>              
+                                            </tr>
+                                        </tbody>  
+                                        <p><% totalStcks += (hist_array[index].quantity);%> </p>
+                                        <% } %> 
+                                    </table>
+                                    <p id="totalStcks">Total Stocks: <%= totalStcks %> pcs </p> 
+
+                                    <script>
+                                        function addRow() {
+                                            var table =  document.getElementById("myTable");
+                                                    var qty = document.getElementById("AddBox").value*1;
+                                                    var totalStcks = document.getElementById("totalStcks"); 
+                                                    var sum = 0;
+                                                    var row = table.insertRow(-1);
+                                                    var cell1 = row.insertCell(0);
+                                                    var cell2 = row.insertCell(1);
+                                                    cell2.innerHTML = qty;
+                                                    cell1.innerHTML = new Date();
+                                                        for(var i = 1; i < table.rows.length; i++)
+                                                        {
+                                                        sum = sum + parseInt(table.rows[i].cells[1].innerHTML); 
+                                                        }
+                                                    document.getElementById("totalStcks").innerHTML= "Total Stocks: " + sum;}
+                                                    function myDeleteFunction() {
+                                                    document.getElementById("myTable").deleteRow(-1);
+                                                    }
+                                    </script>
+                        </div>
+
+    </div> 
+</div>
+
+
+
+
+</div>
+     
+    </body>
+</html>
