@@ -1,5 +1,6 @@
 var express = require('express');
 var app = express();
+app.use(express.static('assets'))
 
 const port = process.env.PORT || 3000;
 
@@ -53,5 +54,4 @@ app.get('/item/:itemid', async function (req, res) {
     res.render('pages/item', {itemData, hist_array});
     })
 });
-
 
